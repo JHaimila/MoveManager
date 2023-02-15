@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Scripts/Moves/Editor/MoveManager.uss?fileID=7433441132597879392&amp;guid=13edc9af5f7c9f643987a8f4194218e1&amp;type=3#MoveManager" />
+    <Style src="project://database/Assets/Scripts/Moves/Editor/CreateMove.uss?fileID=7433441132597879392&amp;guid=b5e3eae4b539c5f4699dc9a248ace5e4&amp;type=3#CreateMove" />
+    <ui:VisualElement name="Parent" style="flex-shrink: 0; flex-grow: 1; min-width: 100%; max-width: 100%;">
+        <ui:VisualElement name="NameParent" class="container">
+            <ui:Label text="MoveName" display-tooltip-when-elided="true" name="MoveNameLabel" style="flex-grow: 0;" />
+            <ui:TextField picking-mode="Ignore" value="filler text" text="filler text" name="moveNameField" style="flex-grow: 0; min-width: auto; min-height: auto; width: 50%;">
+                <ui:Button text="Select" display-tooltip-when-elided="true" name="moveNameBtn" class="greenBtn" />
+            </ui:TextField>
+        </ui:VisualElement>
+        <ui:VisualElement name="IconParent" class="container" style="align-items: center;">
+            <ui:Label text="Icon" display-tooltip-when-elided="true" name="MoveIconLabel" style="flex-shrink: 1;" />
+            <ui:VisualElement name="iconImg" style="flex-shrink: 0; width: 100px; height: 100px;" />
+            <uie:ObjectField name="iconImgField" style="align-items: center; flex-shrink: 1; max-height: none; max-width: 50%;">
+                <ui:Button text="Select" display-tooltip-when-elided="true" name="iconImgBtn" class="greenBtn" />
+            </uie:ObjectField>
+        </ui:VisualElement>
+        <ui:VisualElement name="WinsToParent" class="container" style="flex-direction: column; align-items: flex-start;">
+            <ui:Label text="WinsTo" display-tooltip-when-elided="true" name="WinsToLabel" />
+            <ui:ScrollView name="winsToScrollView" class="scrollView expand" style="align-items: center; justify-content: flex-start; max-height: 140px; height: auto; min-height: 25px;" />
+            <ui:VisualElement name="WinsToControlsParent" style="min-width: auto; margin-top: 10px; width: 100%;">
+                <uie:ObjectField label="Wins To Move" name="winsToObjectField" style="align-items: stretch; justify-content: space-between; min-width: auto; width: 100%;">
+                    <ui:Button text="Add" display-tooltip-when-elided="true" name="winsToBtn" class="greenBtn" />
+                </uie:ObjectField>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonsParent" style="margin-bottom: 10px; margin-top: 10px;">
+            <ui:Label display-tooltip-when-elided="true" name="errorText" style="color: rgba(207, 46, 46, 255);" />
+            <ui:Button text="Create" display-tooltip-when-elided="true" name="createBtn" enable-rich-text="true" class="greenBtn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

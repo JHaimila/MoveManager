@@ -1,0 +1,27 @@
+.expand {
+    flex-grow: 1;
+}
+
+.greenBtn {
+    background-color: rgb(76, 142, 72);
+    border-left-color: rgb(32, 89, 26);
+    border-right-color: rgb(32, 89, 26);
+    border-top-color: rgb(32, 89, 26);
+    border-bottom-color: rgb(32, 89, 26);
+    border-left-width: 1.5px;
+    border-right-width: 1.5px;
+    border-top-width: 1.5px;
+    border-bottom-width: 1.5px;
+    font-size: 19px;
+}
+
+.scrollView {
+    border-left-color: rgba(221, 210, 210, 255);
+    border-right-color: rgba(221, 210, 210, 255);
+    border-top-color: rgba(221, 210, 210, 255);
+    border-bottom-color: rgba(221, 210, 210, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+}

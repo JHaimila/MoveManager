@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/TaskList/Editor/EditorWindow/TaskListEditor.uss?fileID=7433441132597879392&amp;guid=40372527a93bd67429abde6f94dc9f82&amp;type=3#TaskListEditor" />
+    <ui:VisualElement name="loadingTasks" class="container">
+        <uie:ObjectField label="Task List" name="savedTasks" />
+        <ui:Button text="Load Tasks" display-tooltip-when-elided="true" name="loadTasksBtn" class="button" style="max-height: none;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="searchTasks" class="container">
+        <ui:Label text="Search" display-tooltip-when-elided="true" name="searchLabel" class="label" />
+        <uie:ToolbarSearchField focusable="true" name="searchBox" style="width: auto; flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="addingTasks" class="container">
+        <ui:Label text="AddNewTask" display-tooltip-when-elided="true" name="AddTaskHeader" class="label" />
+        <ui:VisualElement name="AddTaskParent" style="flex-direction: row; flex-grow: 0; flex-shrink: 1; flex-wrap: wrap; justify-content: center; align-items: center;">
+            <ui:TextField picking-mode="Ignore" text="New Task" name="taskText" is-delayed="true" style="flex-grow: 1; flex-wrap: wrap;">
+                <ui:Button text="Add" display-tooltip-when-elided="true" name="addTaskBtn" style="flex-shrink: 1; flex-grow: 0; -unity-background-image-tint-color: rgba(82, 236, 77, 0); background-color: rgb(50, 118, 44); border-top-left-radius: -70px; border-bottom-left-radius: -70px; border-top-right-radius: -70px; border-bottom-right-radius: -70px; padding-left: 12px; padding-right: 12px; padding-top: 8px; padding-bottom: 8px; font-size: 13px; -unity-text-outline-width: 0; color: rgb(255, 255, 255);" />
+            </ui:TextField>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="displayTasks" class="container expand" style="flex-shrink: 0; flex-grow: 1; max-height: 100%;">
+        <ui:Label text="Current Tasks" display-tooltip-when-elided="true" name="CurrentTasksLabel" class="label" />
+        <ui:ScrollView name="taskList" class="expand" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; max-height: 229px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="trackingTasks" class="container">
+        <ui:Button text="Save Tasks" display-tooltip-when-elided="true" name="saveProgressBtn" class="button" />
+        <ui:ProgressBar title="---%" name="taskProgressbar" high-value="1" />
+    </ui:VisualElement>
+    <ui:VisualElement name="notificationParent">
+        <ui:Label text="Notice" display-tooltip-when-elided="true" name="NotificationLabel" class="label" />
+        <ui:Label display-tooltip-when-elided="true" name="noticeText" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px; -unity-text-align: middle-left; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-left-color: rgb(108, 195, 226); border-right-color: rgb(108, 195, 226); border-top-color: rgb(108, 195, 226); border-bottom-color: rgb(108, 195, 226); border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px;" />
+    </ui:VisualElement>
+</ui:UXML>

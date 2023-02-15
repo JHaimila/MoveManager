@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-direction: row; justify-content: center; flex-grow: 1;">
+        <ui:ListView focusable="true" virtualization-method="DynamicHeight" name="ActionLIst" style="width: auto; align-items: flex-start;" />
+        <ui:GroupBox name="Action" style="width: auto;">
+            <ui:VisualElement />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

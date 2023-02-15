@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Scripts/Moves/Editor/MoveManager.uss?fileID=7433441132597879392&amp;guid=13edc9af5f7c9f643987a8f4194218e1&amp;type=3#MoveManager" />
+    <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; width: 100%; height: 100%;">
+        <ui:VisualElement name="parentContainer" style="flex-direction: row; flex-grow: 1; justify-content: space-around; flex-shrink: 0; max-height: none; align-items: stretch; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; width: 100%; height: 100%;">
+            <ui:VisualElement name="MovesListParent" style="min-width: auto; flex-grow: 0; flex-shrink: 1; justify-content: space-between; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-right-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); width: 25%; height: 100%;">
+                <ui:ScrollView name="movesList" class="expand" style="flex-shrink: 0; max-height: 300px;" />
+                <ui:VisualElement>
+                    <ui:Button text="New Move" display-tooltip-when-elided="true" name="newMoveBtn" class="greenBtn" style="background-color: rgb(49, 159, 58);" />
+                    <ui:Button text="Refresh" display-tooltip-when-elided="true" name="refreshMoveList" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="moveView" style="flex-grow: 1; justify-content: space-between; flex-shrink: 0; padding-left: 9px; padding-right: 9px; padding-top: 9px; padding-bottom: 9px; width: 75%;">
+                <ui:VisualElement name="MoveViewTop" style="flex-direction: row; align-items: center; margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); padding-bottom: 5px;">
+                    <ui:VisualElement name="ImageContainer" style="flex-shrink: 0; width: 50%;">
+                        <ui:VisualElement name="moveIcon" style="width: 100px; height: 100px; margin-right: 10px;" />
+                        <uie:ObjectField name="changeIcon">
+                            <ui:Button text="Change" display-tooltip-when-elided="true" name="changeIconBtn" class="greenBtn" />
+                        </uie:ObjectField>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="NameContainer" style="justify-content: space-around; flex-direction: row; width: 50%;">
+                        <ui:TextField picking-mode="Ignore" value="Name" name="moveName" readonly="false" style="font-size: 24px; -unity-font-style: bold; flex-wrap: nowrap; white-space: normal; width: 50%;" />
+                        <ui:Button text="Change" display-tooltip-when-elided="true" name="changeNameBtn" class="greenBtn" style="width: 50%; margin-left: 4px; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="MoveViewBottom" class="expand" style="padding-left: 3px; padding-right: 3px; padding-top: 3px; padding-bottom: 3px;">
+                    <ui:Label text="Wins To" display-tooltip-when-elided="true" name="WinsAgainstLabel" style="-unity-text-align: upper-left; font-size: 18px;" />
+                    <ui:ScrollView name="winsAgainstList" style="padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; flex-grow: 1; flex-shrink: 0; background-color: rgb(103, 103, 103);" />
+                    <ui:VisualElement name="AddToList" style="flex-direction: row; width: 100%;">
+                        <uie:ObjectField label="Add Move" name="addToWinAgainstField" style="width: 80%;" />
+                        <ui:Button text="Add" display-tooltip-when-elided="true" name="addToWinAgainstBtn" class="greenBtn" style="width: 15%;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="DeleteContainer" style="align-items: flex-end;">
+                        <ui:Button text="Delete" display-tooltip-when-elided="true" name="deleteMoveBtn" style="align-items: center; white-space: nowrap; background-color: rgb(217, 83, 83); font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

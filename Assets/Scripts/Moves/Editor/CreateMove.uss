@@ -1,0 +1,11 @@
+.container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    align-items: center;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
