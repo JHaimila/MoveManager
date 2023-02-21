@@ -57,14 +57,14 @@ public class MoveManager : EditorWindow
 
         // Move View
         moveName = container.Q<TextField>("moveName");
-        changeNameBtn = container.Q<Button>("changeNameBtn");
-        changeNameBtn.clicked += ChangeMoveName;
+        // changeNameBtn = container.Q<Button>("changeNameBtn");
+        // changeNameBtn.clicked += ChangeMoveName;
         moveIcon = container.Q<VisualElement>("moveIcon");
         changeIcon = container.Q<ObjectField>("changeIcon");
         changeIcon.objectType = typeof(Sprite);
-        changeIconBtn = container.Q<Button>("changeIconBtn");
-        changeIconBtn.clicked += ChangeMoveIcon;
-        // changeIcon.RegisterValueChangedCallback(ChangeMoveIcon);
+        // changeIconBtn = container.Q<Button>("changeIconBtn");
+        // changeIconBtn.clicked += ChangeMoveIcon;
+        
         winsAgainstList = container.Q<ScrollView>("winsAgainstList");
         addToWinAgainstField = container.Q<ObjectField>("addToWinAgainstField");
         addToWinAgainstField.objectType = typeof(MoveClass);
@@ -118,7 +118,9 @@ public class MoveManager : EditorWindow
     {
         if(_activeMove != null)
         {
+            Debug.Log("UnRegisterEvents();");
             ClearMoveView();
+            UnRegisterEvents();
             moveName.value = _activeMove.moveName;
             moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
             changeIcon.value = _activeMove.img;
@@ -133,6 +135,8 @@ public class MoveManager : EditorWindow
                     winsAgainstList.Add(newMove);
                 }
             }
+            Debug.Log("RegisterEvents();");
+            RegisterEvents();
         }
     }
 
@@ -151,19 +155,19 @@ public class MoveManager : EditorWindow
         SaveMove();
         RefreshMoveView();
     }
-    private void ChangeMoveName()
+    private void ChangeMoveName(ChangeEvent<string> changeEvent)
     {
         if(_activeMove != null)
         {
             string prevName = _activeMove.moveName;
             _activeMove.moveName = moveName.value;
             changesMade.Add("Name changed from "+prevName+" to "+_activeMove.moveName);
-            SaveMove();
-            RefreshMoveView();
+            // SaveMove();
+            // RefreshMoveView();
             RefreshMovesList();
         }
     }
-    private void ChangeMoveIcon()
+    private void ChangeMoveIcon(ChangeEvent<Sprite> changeEvent)
     {
         string prevImg = "";
         if(_activeMove.img != null)
@@ -171,11 +175,12 @@ public class MoveManager : EditorWindow
             prevImg = _activeMove.img.name;
         }
         
-        Sprite newIcon = changeIcon.value as Sprite;
+        Sprite newIcon = changeEvent.newValue;
         _activeMove.img = newIcon;
         changesMade.Add("Changed the move icon from "+prevImg+" to "+newIcon.name);
         SaveMove();
-        RefreshMoveView();
+        // RefreshMoveView();
+        moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
     }
     private void AddWinAgainst()
     {
@@ -197,19 +202,6 @@ public class MoveManager : EditorWindow
 
     private void CreateMoveOnClick()
     {
-        // if(!string.IsNullOrEmpty(newMoveNameField.value))
-        // {
-        //     MoveClass newMove = ScriptableObject.CreateInstance<MoveClass>();
-        //     newMove.beats = new List<MoveClass>();
-        //     newMove.moveName = newMoveNameField.value;
-        //     AssetDatabase.CreateAsset(newMove, SOPath + newMoveNameField.value + ".asset");
-        //     AssetDatabase.SaveAssets();
-        //     newMoveNameField.value = "";
-        //     RefreshMovesList();
-        //     RefreshMoveView();
-            
-        // }
-        
         CreateMove.ShowWindow();
     }
     private void DeleteMove()
@@ -219,5 +211,17 @@ public class MoveManager : EditorWindow
         AssetDatabase.DeleteAsset(path);
         RefreshMovesList();
         ClearMoveView();
+    }
+
+    private void RegisterEvents()
+    {
+        moveName.RegisterCallback<ChangeEvent<string>>(ChangeMoveName);
+        changeIcon.RegisterCallback<ChangeEvent<Sprite>>(ChangeMoveIcon);
+    }
+
+    private void UnRegisterEvents()
+    {
+        moveName?.UnregisterCallback<ChangeEvent<string>>(ChangeMoveName);
+        changeIcon?.UnregisterCallback<ChangeEvent<Sprite>>(ChangeMoveIcon);
     }
 }

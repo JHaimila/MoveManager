@@ -16,12 +16,12 @@
 }
 
 .scrollView {
-    border-left-color: rgba(221, 210, 210, 255);
-    border-right-color: rgba(221, 210, 210, 255);
-    border-top-color: rgba(221, 210, 210, 255);
-    border-bottom-color: rgba(221, 210, 210, 255);
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
+    border-left-color: rgb(221, 210, 210);
+    border-right-color: rgb(221, 210, 210);
+    border-top-color: rgb(221, 210, 210);
+    border-bottom-color: rgb(221, 210, 210);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9e96728b37ea941ab127bee86c4b58, type: 3}
   m_Name: Rock
   m_EditorClassIdentifier: 
-  moveName: Rock
+  moveName: Rock2
   beats:
   - {fileID: 11400000, guid: ea748614e4a3b734b8f2fa0fdd18076c, type: 2}
   - {fileID: 11400000, guid: a1b17a2aab9f6d94a96a4879f69054fe, type: 2}
