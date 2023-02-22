@@ -16,7 +16,7 @@
                     <ui:VisualElement name="ImageContainer" style="flex-shrink: 0; width: 50%;">
                         <ui:VisualElement name="moveIcon" style="width: 100px; height: 100px; margin-right: 10px;" />
                         <uie:ObjectField name="changeIcon">
-                            <ui:Button text="Change" display-tooltip-when-elided="true" name="changeIconBtn" class="greenBtn" style="display: none;" />
+                            <ui:Button text="Change" display-tooltip-when-elided="true" name="changeIconBtn" class="greenBtn" style="display: flex;" />
                         </uie:ObjectField>
                     </ui:VisualElement>
                     <ui:VisualElement name="NameContainer" style="justify-content: space-around; flex-direction: row; width: 50%;">
@@ -32,11 +32,11 @@
                         <ui:Button text="Add" display-tooltip-when-elided="true" name="addToWinAgainstBtn" class="greenBtn" style="width: 15%;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="DeleteContainer" style="align-items: center; flex-direction: row-reverse; justify-content: space-between;">
-                        <ui:VisualElement name="moveBtns" style="flex-direction: row;">
-                            <ui:Button text="Save" display-tooltip-when-elided="true" name="saveMoveBtn" class="greenBtn" style="align-items: center; white-space: nowrap; font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;" />
+                        <ui:VisualElement name="moveBtns" style="flex-direction: row; margin-top: 20px;">
+                            <ui:Button text="Save" display-tooltip-when-elided="true" name="saveMoveBtn" class="greenBtn" style="align-items: center; white-space: nowrap; font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px; display: none;" />
                             <ui:Button text="Delete" display-tooltip-when-elided="true" name="deleteMoveBtn" style="align-items: center; white-space: nowrap; background-color: rgb(217, 83, 83); font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;" />
                         </ui:VisualElement>
-                        <ui:Label text="Changes: " display-tooltip-when-elided="true" style="width: auto;" />
+                        <ui:Label text="Changes: " display-tooltip-when-elided="true" style="width: auto; display: none;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

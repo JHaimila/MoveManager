@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Codice.Client.BaseCommands;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
@@ -62,8 +63,8 @@ public class MoveManager : EditorWindow
         moveIcon = container.Q<VisualElement>("moveIcon");
         changeIcon = container.Q<ObjectField>("changeIcon");
         changeIcon.objectType = typeof(Sprite);
-        // changeIconBtn = container.Q<Button>("changeIconBtn");
-        // changeIconBtn.clicked += ChangeMoveIcon;
+        changeIconBtn = container.Q<Button>("changeIconBtn");
+        changeIconBtn.clicked += ChangeMoveIcon;
         
         winsAgainstList = container.Q<ScrollView>("winsAgainstList");
         addToWinAgainstField = container.Q<ObjectField>("addToWinAgainstField");
@@ -155,19 +156,19 @@ public class MoveManager : EditorWindow
         SaveMove();
         RefreshMoveView();
     }
-    private void ChangeMoveName(ChangeEvent<string> changeEvent)
+    private void ChangeMoveName(FocusOutEvent focusOutEvent)
     {
         if(_activeMove != null)
         {
             string prevName = _activeMove.moveName;
             _activeMove.moveName = moveName.value;
             changesMade.Add("Name changed from "+prevName+" to "+_activeMove.moveName);
-            // SaveMove();
+            SaveMove();
             // RefreshMoveView();
             RefreshMovesList();
         }
     }
-    private void ChangeMoveIcon(ChangeEvent<Sprite> changeEvent)
+    private void ChangeMoveIcon()
     {
         string prevImg = "";
         if(_activeMove.img != null)
@@ -175,12 +176,12 @@ public class MoveManager : EditorWindow
             prevImg = _activeMove.img.name;
         }
         
-        Sprite newIcon = changeEvent.newValue;
+        Sprite newIcon = changeIcon.value as Sprite;
         _activeMove.img = newIcon;
+        moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
         changesMade.Add("Changed the move icon from "+prevImg+" to "+newIcon.name);
         SaveMove();
         // RefreshMoveView();
-        moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
     }
     private void AddWinAgainst()
     {
@@ -215,13 +216,13 @@ public class MoveManager : EditorWindow
 
     private void RegisterEvents()
     {
-        moveName.RegisterCallback<ChangeEvent<string>>(ChangeMoveName);
-        changeIcon.RegisterCallback<ChangeEvent<Sprite>>(ChangeMoveIcon);
+        moveName.RegisterCallback<FocusOutEvent>(ChangeMoveName);
+        // changeIcon?.UnregisterCallback<FocusOutEvent>(ChangeMoveIcon);
     }
 
     private void UnRegisterEvents()
     {
-        moveName?.UnregisterCallback<ChangeEvent<string>>(ChangeMoveName);
-        changeIcon?.UnregisterCallback<ChangeEvent<Sprite>>(ChangeMoveIcon);
+        moveName?.UnregisterCallback<FocusOutEvent>(ChangeMoveName);
+        // changeIcon?.UnregisterCallback<FocusOutEvent>(ChangeMoveIcon);
     }
 }
