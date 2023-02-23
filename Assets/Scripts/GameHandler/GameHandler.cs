@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameHandler : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class GameHandler : MonoBehaviour
     private MoveClass _enemyMove; 
     private List<MoveClass> _moves;
     [SerializeField] private MainGameUI _mainGameUI;
-    [SerializeField] private GameOverUI _gameOverUI;
+    [SerializeField] private GameStatusText gameStatusText;
     [SerializeField] private PlayerStats _playerStats;
     private int countDownTimer;
 
@@ -83,12 +84,13 @@ public class GameHandler : MonoBehaviour
     public void Reset()
     {
         _mainGameUI.ResetUI();
-        _gameOverUI.DisableUI();
+        gameStatusText.SetText("Select your move");
         _mainGameUI.UpdateActionsList(_moves);
     }
     IEnumerator WaitToShowResults(string text)
     {
-        yield return new WaitForSeconds(1);
-        _gameOverUI.SetUI(text);
+        gameStatusText.SetText(text);
+        yield return new WaitForSeconds(3);
+        Reset();
     }
 }

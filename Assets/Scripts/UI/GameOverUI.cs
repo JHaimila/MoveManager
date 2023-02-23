@@ -9,10 +9,10 @@ public class GameOverUI : MonoBehaviour
     public void SetUI(string text)
     {
         textUI.text = text;
-        transform.GetChild(0).gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
     public void DisableUI()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
