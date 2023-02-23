@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Scripts/Moves/Editor/MoveManager.uss?fileID=7433441132597879392&amp;guid=13edc9af5f7c9f643987a8f4194218e1&amp;type=3#MoveManager" />
-    <SplitView fixed-pane-initial-dimension="150" name="split-view" style="flex-shrink: 0; min-width: 500px; min-height: 500px;">
+    <SplitView fixed-pane-initial-dimension="150" name="split-view" style="flex-shrink: 1; min-width: 500px; min-height: 500px; padding-left: 1px; padding-right: 1px; padding-top: 1px; padding-bottom: 1px;">
         <ui:VisualElement name="left-view" style="width: 300px; height: auto; flex-grow: 1; flex-shrink: 0;">
             <ui:VisualElement name="MovesListParent" style="flex-grow: 1; flex-shrink: 0; width: auto; height: auto;">
                 <ui:ScrollView name="movesList" class="expand" style="flex-shrink: 0; max-height: none;" />
@@ -16,7 +16,7 @@
                     <ui:VisualElement name="ImageContainer" style="flex-shrink: 0; width: 50%;">
                         <ui:VisualElement name="moveIcon" style="width: 100px; height: 100px; margin-right: 10px;" />
                         <uie:ObjectField name="changeIcon">
-                            <ui:Button text="Change" display-tooltip-when-elided="true" name="changeIconBtn" class="greenBtn" style="display: flex;" />
+                            <ui:Button display-tooltip-when-elided="true" name="changeIconBtn" style="display: flex; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-image: url(&apos;project://database/Packages/com.unity.collab-proxy/Editor/PlasticSCM/Assets/Images/iconaddedlocal@2x.png?fileID=2800000&amp;guid=a67b58d6cddcd4345b1e001340de5a76&amp;type=3#iconaddedlocal@2x&apos;); width: 30px; height: 30px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgba(0, 0, 0, 0); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-top-left-radius: -75px; border-bottom-left-radius: -75px; border-top-right-radius: -75px; border-bottom-right-radius: -75px; justify-content: center; align-items: center;" />
                         </uie:ObjectField>
                     </ui:VisualElement>
                     <ui:VisualElement name="NameContainer" style="justify-content: space-around; flex-direction: row; width: 50%;">
@@ -36,7 +36,10 @@
                             <ui:Button text="Save" display-tooltip-when-elided="true" name="saveMoveBtn" class="greenBtn" style="align-items: center; white-space: nowrap; font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px; display: none;" />
                             <ui:Button text="Delete" display-tooltip-when-elided="true" name="deleteMoveBtn" style="align-items: center; white-space: nowrap; background-color: rgb(217, 83, 83); font-size: 16px; -unity-font-style: bold; width: 83px; margin-right: 14px; margin-top: 8px; padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px;" />
                         </ui:VisualElement>
-                        <ui:Label text="Changes: " display-tooltip-when-elided="true" style="width: auto; display: none;" />
+                        <ui:VisualElement>
+                            <ui:Label text="Errors:" display-tooltip-when-elided="true" name="errorLabel" style="width: 473px; display: flex; height: 17px; visibility: visible;" />
+                            <ui:Label display-tooltip-when-elided="true" name="errorList" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

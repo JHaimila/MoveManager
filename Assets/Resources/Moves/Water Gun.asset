@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9e96728b37ea941ab127bee86c4b58, type: 3}
   m_Name: Water Gun
   m_EditorClassIdentifier: 
-  moveName: Water Gun
+  moveName: Watergun
   beats:
   - {fileID: 11400000, guid: 83be54c26c1e75a4193fdc1c99e05b13, type: 2}
   img: {fileID: 21300000, guid: 9bb60d9b0987c3747b57516cc172d0c7, type: 3}

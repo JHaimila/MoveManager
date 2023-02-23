@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Codice.Client.BaseCommands;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 
 public class MoveManager : EditorWindow
 {
@@ -18,6 +21,7 @@ public class MoveManager : EditorWindow
 
     // Move View elements
     TextField moveName;
+    private Label errorText;
     Button changeNameBtn;
     VisualElement moveIcon;
     ObjectField changeIcon;
@@ -65,6 +69,8 @@ public class MoveManager : EditorWindow
         changeIcon.objectType = typeof(Sprite);
         changeIconBtn = container.Q<Button>("changeIconBtn");
         changeIconBtn.clicked += ChangeMoveIcon;
+
+        errorText = container.Q<Label>("errorList");
         
         winsAgainstList = container.Q<ScrollView>("winsAgainstList");
         addToWinAgainstField = container.Q<ObjectField>("addToWinAgainstField");
@@ -100,12 +106,10 @@ public class MoveManager : EditorWindow
         GetMoves();
         foreach(MoveClass move in _moves)
         {
-            Button newMove = new Button();
-            newMove.text = move.moveName;
-            newMove.clicked += delegate {OnMoveClicked(move);};
+            MoveListItem newMove = new MoveListItem(move.moveName, GetIncompatableMoves(move));
+            newMove.GetButton().clicked += delegate {OnMoveClicked(move);};
             movesList.Add(newMove);
         }
-
     }
     public void OnMoveClicked(MoveClass move)
     {
@@ -117,15 +121,28 @@ public class MoveManager : EditorWindow
     }
     public void RefreshMoveView()
     {
+        errorText.text = "";
         if(_activeMove != null)
         {
-            Debug.Log("UnRegisterEvents();");
             ClearMoveView();
             UnRegisterEvents();
             moveName.value = _activeMove.moveName;
             moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
             changeIcon.value = _activeMove.img;
             addToWinAgainstField.value = null;
+            List<string> incompatableMoves = GetIncompatableMoves(_activeMove);
+            if (incompatableMoves.Count > 0)
+            {
+                foreach (var incompatableMove in incompatableMoves)
+                {
+                    errorText.text += incompatableMove + ", ";
+                }
+            }
+            else
+            {
+                errorText.text = "";
+            }
+            
             if(_activeMove.beats.Count > 0)
             {
                 foreach(MoveClass winMove in _activeMove.beats)
@@ -136,7 +153,6 @@ public class MoveManager : EditorWindow
                     winsAgainstList.Add(newMove);
                 }
             }
-            Debug.Log("RegisterEvents();");
             RegisterEvents();
         }
     }
@@ -155,33 +171,25 @@ public class MoveManager : EditorWindow
         btn.clicked -= delegate{RemoveWinsTo(move, btn);};
         SaveMove();
         RefreshMoveView();
+        RefreshMovesList();
     }
     private void ChangeMoveName(FocusOutEvent focusOutEvent)
     {
         if(_activeMove != null)
         {
-            string prevName = _activeMove.moveName;
             _activeMove.moveName = moveName.value;
-            changesMade.Add("Name changed from "+prevName+" to "+_activeMove.moveName);
             SaveMove();
-            // RefreshMoveView();
             RefreshMovesList();
         }
     }
     private void ChangeMoveIcon()
     {
-        string prevImg = "";
-        if(_activeMove.img != null)
-        {
-            prevImg = _activeMove.img.name;
-        }
+        if (_activeMove == null) {return;}
         
         Sprite newIcon = changeIcon.value as Sprite;
         _activeMove.img = newIcon;
         moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
-        changesMade.Add("Changed the move icon from "+prevImg+" to "+newIcon.name);
         SaveMove();
-        // RefreshMoveView();
     }
     private void AddWinAgainst()
     {
@@ -189,9 +197,9 @@ public class MoveManager : EditorWindow
         {
             MoveClass newWinsAgainst = addToWinAgainstField.value as MoveClass;
             _activeMove.beats.Add(newWinsAgainst);
-            changesMade.Add("Added wins to: "+newWinsAgainst.moveName);
             SaveMove();
             RefreshMoveView();
+            RefreshMovesList();
         }
     }
     private void SaveMove()
@@ -207,7 +215,16 @@ public class MoveManager : EditorWindow
     }
     private void DeleteMove()
     {
-
+        if (_activeMove == null) { return;}
+        
+        foreach (var move in _moves)
+        {
+            if (move.beats.Contains(_activeMove))
+            {
+                move.beats.Remove(_activeMove);
+            }
+        }
+        
         var path = AssetDatabase.GetAssetPath(_activeMove);
         AssetDatabase.DeleteAsset(path);
         RefreshMovesList();
@@ -217,12 +234,24 @@ public class MoveManager : EditorWindow
     private void RegisterEvents()
     {
         moveName.RegisterCallback<FocusOutEvent>(ChangeMoveName);
-        // changeIcon?.UnregisterCallback<FocusOutEvent>(ChangeMoveIcon);
     }
 
     private void UnRegisterEvents()
     {
         moveName?.UnregisterCallback<FocusOutEvent>(ChangeMoveName);
-        // changeIcon?.UnregisterCallback<FocusOutEvent>(ChangeMoveIcon);
+    }
+    
+    public List<string> GetIncompatableMoves(MoveClass givenMove)
+    {
+        List<string> failedMoves = new List<string>();
+        foreach (MoveClass move in _moves)
+        {
+            if (move == givenMove || givenMove.beats.Contains(move) || move.beats.Contains(givenMove))
+            {
+                continue;
+            }
+            failedMoves.Add(move.moveName);
+        }
+        return failedMoves;
     }
 }

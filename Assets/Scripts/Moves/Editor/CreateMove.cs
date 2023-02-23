@@ -86,8 +86,6 @@ public class CreateMove : EditorWindow
     }
     private void AddMoveWinsTo()
     {
-        MoveClass newWinsTo2 = winsToObjectField.value as MoveClass;
-        Debug.Log(newWinsTo2);
         if(winsToObjectField.value != null)
         {
             newWinsToList.Add(winsToObjectField.value as MoveClass);
