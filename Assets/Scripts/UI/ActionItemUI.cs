@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ActionItemUI : MonoBehaviour
 {
-    [SerializeField] private Image _img;
-    [SerializeField] private TextMeshProUGUI _moveName;
-    [SerializeField] private TextMeshProUGUI _winsText;
+    [SerializeField] private Image img;
+    [SerializeField] private TextMeshProUGUI moveName;
+    [SerializeField] private TextMeshProUGUI winsText;
     private string _actionString;
     public void PopulateUI(Sprite img, string moveName, List<MoveClass> winsTo)
     {
-        _img.sprite = img;
-        _moveName.text = moveName;
+        this.img.sprite = img;
+        this.moveName.text = moveName;
         _actionString = moveName;
-        _winsText.text = PopulateList(winsTo);
+        winsText.text = PopulateList(winsTo);
     }
     
     private string PopulateList(List<MoveClass> moves)
@@ -32,11 +33,11 @@ public class ActionItemUI : MonoBehaviour
 
     public void SetActive()
     {
-        _moveName.text = "Selected";
+        moveName.text = "Selected";
     }
     public void SetDefault()
     {
-        _moveName.text = _actionString;
+        moveName.text = _actionString;
     }
 
 }

@@ -5,72 +5,54 @@ using UnityEngine.Serialization;
 
 public class GameHandler : MonoBehaviour
 {
-    private MoveClass _playerMove;
-    private MoveClass _enemyMove; 
-    private List<MoveClass> _moves;
-    [SerializeField] private MainGameUI _mainGameUI;
+    private MoveClass playerMove;
+    private MoveClass enemyMove; 
+    private List<MoveClass> moves;
+    [SerializeField] private MainGameUI mainGameUI;
     [SerializeField] private GameStatusText gameStatusText;
-    [SerializeField] private PlayerStats _playerStats;
     private int countDownTimer;
 
     private void Start() {
-        _moves = new List<MoveClass>();
+        moves = new List<MoveClass>();
         Object[] objects = Resources.LoadAll("Moves", typeof(MoveClass));
         foreach(var obj in objects)
         {
-            _moves.Add((MoveClass)obj);
+            moves.Add((MoveClass)obj);
         }
-        _mainGameUI.UpdateActionsList(_moves);
+        mainGameUI.UpdateActionsList(moves);
     }
 
     public void SetPlayerAction(MoveClass move)
     {
-        _playerMove = move;
-        _mainGameUI.SetPlayerImage(move.img);
+        playerMove = move;
+        mainGameUI.SetPlayerImage(move.img);
     }
     public void SetEnemyMove()
     {
-        _enemyMove = _moves[Random.Range(0, _moves.Count)];
-        _mainGameUI.SetEnemyImage(_enemyMove.img);
+        enemyMove = moves[Random.Range(0, moves.Count)];
+        mainGameUI.SetEnemyImage(enemyMove.img);
     }
     private void CompareMoves()
     {
         bool winnerFound = false;
-        if(_enemyMove == _playerMove)
+        if(enemyMove == playerMove)
         {
             StartCoroutine(WaitToShowResults("Draw! How boring!"));
-            _playerStats.draws++;
+            winnerFound = true;
+        }
+        if (!winnerFound && playerMove.beats.Contains(enemyMove))
+        {
+            StartCoroutine(WaitToShowResults("You won, congrats!"));
+            winnerFound = true;
+        }
+        if (!winnerFound && enemyMove.beats.Contains(playerMove))
+        {
+            StartCoroutine(WaitToShowResults("You lost, you suck!"));
             winnerFound = true;
         }
         if(!winnerFound)
         {
-            foreach(var action in _playerMove.beats)
-            {
-                if(action == _enemyMove)
-                {
-                    StartCoroutine(WaitToShowResults("You won, congrats!"));
-                    _playerStats.wins++;
-                    winnerFound = true;
-                    break;
-                }
-            }
-        }
-        if(!winnerFound)
-        {
-            foreach(var action in _enemyMove.beats)
-            {
-                if(action == _playerMove)
-                {
-                    StartCoroutine(WaitToShowResults("You lost, you suck!"));
-                    _playerStats.losses++;
-                    winnerFound = true;
-                    break;
-                }
-            }
-        }
-        if(!winnerFound)
-        {
-            Debug.LogError("Unhanlded match between "+_enemyMove.moveName+" and "+_playerMove.moveName+" no winner can be decided");
+            Debug.LogError("Unhanlded match between "+enemyMove.moveName+" and "+playerMove.moveName+" no winner can be decided");
             Reset();
         }
         
@@ -83,9 +65,9 @@ public class GameHandler : MonoBehaviour
     }
     public void Reset()
     {
-        _mainGameUI.ResetUI();
+        mainGameUI.ResetUI();
         gameStatusText.SetText("Select your move");
-        _mainGameUI.UpdateActionsList(_moves);
+        mainGameUI.UpdateActionsList(moves);
     }
     IEnumerator WaitToShowResults(string text)
     {

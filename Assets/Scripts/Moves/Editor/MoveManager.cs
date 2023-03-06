@@ -13,7 +13,7 @@ public class MoveManager : EditorWindow
 {
     VisualElement container;
     List<MoveClass> _moves = new List<MoveClass>();
-    MoveClass _activeMove;
+    MoveClass activeMove;
     List<string> changesMade = new List<string>();
 
     // Moves scroll elements
@@ -115,22 +115,22 @@ public class MoveManager : EditorWindow
     {
         if( move != null)
         {
-            _activeMove = move;
+            activeMove = move;
             RefreshMoveView();
         }
     }
     public void RefreshMoveView()
     {
         errorText.text = "";
-        if(_activeMove != null)
+        if(activeMove != null)
         {
             ClearMoveView();
             UnRegisterEvents();
-            moveName.value = _activeMove.moveName;
-            moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
-            changeIcon.value = _activeMove.img;
+            moveName.value = activeMove.moveName;
+            moveIcon.style.backgroundImage = new StyleBackground(activeMove.img);
+            changeIcon.value = activeMove.img;
             addToWinAgainstField.value = null;
-            List<string> incompatableMoves = GetIncompatableMoves(_activeMove);
+            List<string> incompatableMoves = GetIncompatableMoves(activeMove);
             if (incompatableMoves.Count > 0)
             {
                 foreach (var incompatableMove in incompatableMoves)
@@ -143,9 +143,9 @@ public class MoveManager : EditorWindow
                 errorText.text = "";
             }
             
-            if(_activeMove.beats.Count > 0)
+            if(activeMove.beats.Count > 0)
             {
-                foreach(MoveClass winMove in _activeMove.beats)
+                foreach(MoveClass winMove in activeMove.beats)
                 {
                     WinsToItem newMove = new WinsToItem(winMove.moveName);
                     newMove.GetLabel().text = winMove.moveName;
@@ -167,7 +167,7 @@ public class MoveManager : EditorWindow
     }
     public void RemoveWinsTo(MoveClass move, Button btn)
     {
-        _activeMove.beats.Remove(move);
+        activeMove.beats.Remove(move);
         btn.clicked -= delegate{RemoveWinsTo(move, btn);};
         SaveMove();
         RefreshMoveView();
@@ -175,28 +175,28 @@ public class MoveManager : EditorWindow
     }
     private void ChangeMoveName(FocusOutEvent focusOutEvent)
     {
-        if(_activeMove != null)
+        if(activeMove != null)
         {
-            _activeMove.moveName = moveName.value;
+            activeMove.moveName = moveName.value;
             SaveMove();
             RefreshMovesList();
         }
     }
     private void ChangeMoveIcon()
     {
-        if (_activeMove == null) {return;}
+        if (activeMove == null) {return;}
         
         Sprite newIcon = changeIcon.value as Sprite;
-        _activeMove.img = newIcon;
-        moveIcon.style.backgroundImage = new StyleBackground(_activeMove.img);
+        activeMove.img = newIcon;
+        moveIcon.style.backgroundImage = new StyleBackground(activeMove.img);
         SaveMove();
     }
     private void AddWinAgainst()
     {
-        if(_activeMove != null && addToWinAgainstField.value != null)
+        if(activeMove != null && addToWinAgainstField.value != null)
         {
             MoveClass newWinsAgainst = addToWinAgainstField.value as MoveClass;
-            _activeMove.beats.Add(newWinsAgainst);
+            activeMove.beats.Add(newWinsAgainst);
             SaveMove();
             RefreshMoveView();
             RefreshMovesList();
@@ -204,8 +204,8 @@ public class MoveManager : EditorWindow
     }
     private void SaveMove()
     {
-        EditorUtility.SetDirty(_activeMove);
-        AssetDatabase.SaveAssetIfDirty(_activeMove);
+        EditorUtility.SetDirty(activeMove);
+        AssetDatabase.SaveAssetIfDirty(activeMove);
         AssetDatabase.Refresh();
     }
 
@@ -215,17 +215,17 @@ public class MoveManager : EditorWindow
     }
     private void DeleteMove()
     {
-        if (_activeMove == null) { return;}
+        if (activeMove == null) { return;}
         
         foreach (var move in _moves)
         {
-            if (move.beats.Contains(_activeMove))
+            if (move.beats.Contains(activeMove))
             {
-                move.beats.Remove(_activeMove);
+                move.beats.Remove(activeMove);
             }
         }
         
-        var path = AssetDatabase.GetAssetPath(_activeMove);
+        var path = AssetDatabase.GetAssetPath(activeMove);
         AssetDatabase.DeleteAsset(path);
         RefreshMovesList();
         ClearMoveView();

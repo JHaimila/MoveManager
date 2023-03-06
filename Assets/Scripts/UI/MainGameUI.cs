@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MainGameUI : MonoBehaviour
 {
     [SerializeField] private GameObject movesParent;
-    [SerializeField] private GameObject movesUI;
+    [SerializeField] private GameObject movesPrefab;
     [SerializeField] private Image enemyImage;
     [SerializeField] private Image playerImage;
     [SerializeField] private GameHandler gameHandler;
@@ -39,10 +39,10 @@ public class MainGameUI : MonoBehaviour
         Vector3 offset = Vector3.zero;
         foreach(var move in moves)
         {
-            GameObject listItem = Instantiate(movesUI, movesParent.transform.position - offset, Quaternion.identity, movesParent.transform);
+            GameObject listItem = Instantiate(movesPrefab, movesParent.transform.position - offset, Quaternion.identity, movesParent.transform);
             listItem.GetComponent<ActionItemUI>().PopulateUI(move.img, move.moveName, move.beats);
             listItem.GetComponent<Button>().onClick.AddListener(delegate {SetSelect(move, listItem.GetComponent<ActionItemUI>());});
-            offset += new Vector3(0, movesUI.GetComponent<RectTransform>().rect.height, 0);
+            offset += new Vector3(0, movesPrefab.GetComponent<RectTransform>().rect.height, 0);
         }
     }
     public void SetSelect(MoveClass move, ActionItemUI ui)
